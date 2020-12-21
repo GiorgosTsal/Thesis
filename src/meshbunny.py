@@ -5,6 +5,7 @@ Created on Sun Dec 20 22:19:22 2020
 @author: root
 """
 
+import os
 import numpy as np
 import open3d as o3d
 import matplotlib.pyplot as plt
@@ -16,6 +17,10 @@ output_path="output/"
 dataname="bunny.ply"
 
 bunny_path = input_path + dataname
+
+if not os.path.exists(output_path):
+    os.makedirs(output_path)
+    
 bunny_output_path = output_path+"bpa_mesh.ply"
 
 mesh = o3d.io.read_triangle_mesh(bunny_path)
