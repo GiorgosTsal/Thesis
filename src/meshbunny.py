@@ -6,9 +6,9 @@ Created on Sun Dec 20 22:19:22 2020
 """
 
 import os
-import numpy as np
+#himport numpy as np
 import open3d as o3d
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 
 
