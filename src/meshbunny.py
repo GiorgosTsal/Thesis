@@ -14,7 +14,11 @@ import open3d as o3d
 
 input_path="datasets/"
 output_path="output/"
-dataname="bunny.ply"
+# dataname2="lod_100.off"
+# dataname="sample.xyz"
+dataname = "bunny.ply"
+# dataname = "functionA_65.ply"
+
 
 bunny_path = input_path + dataname
 
@@ -62,7 +66,7 @@ def lod_mesh_export(mesh, lods, extension, path):
     return mesh_lods
 
 
-my_lods = lod_mesh_export(rec_mesh, [100000,50000,10000,1000,100], ".ply", output_path)
+my_lods = lod_mesh_export(rec_mesh, [100000,50000,10000,1000,100], ".off", output_path)
 
 # access and visualize 100 triangles
 o3d.visualization.draw_geometries([my_lods[100]])
