@@ -24,7 +24,7 @@ class PointCloudData(Dataset):
         for category in self.classes.keys():
             new_dir = root_dir/Path(category)/folder
             for file in os.listdir(new_dir):
-                if file.endswith('.off'):
+                if file.endswith('.ply'):
                     sample = {}
                     sample['pcd_path'] = new_dir/file
                     sample['category'] = category
@@ -34,9 +34,7 @@ class PointCloudData(Dataset):
         return len(self.files)
 
     def __preproc__(self, file):
-        verts, faces = utils.read_off(file)
-        if self.transforms:
-            pointcloud = self.transforms((verts, faces))
+        pointcloud = utils.read_off(file)
         return pointcloud
 
     def __getitem__(self, idx):

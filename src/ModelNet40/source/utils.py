@@ -2,19 +2,17 @@ import numpy as np
 import math
 import random
 import torch
+import open3d as o3d
 
 
 def read_off(file):
-    # print("===111=====")
-    if 'OFF' != file.readline().strip():
-        raise('Not a valid OFF header')
-    n_verts, n_faces, __ = tuple([int(s) for s in file.readline().strip().split(' ')])
-    # print("=========================================")
-    verts = [[float(s) for s in file.readline().strip().split(' ')] for i_vert in range(n_verts)]
-    faces = [[int(s) for s in file.readline().strip().split(' ')][1:] for i_face in range(n_faces)]
-    # print(verts)
-    # print("=========================================")
-    return verts, faces
+    pcd = o3d.io.read_point_cloud(file.name) # Read the point cloud
+    # Convert open3d format to numpy array
+    # Here, you have the point cloud in numpy format. 
+    point_cloud_in_numpy = np.asarray(pcd.points) 
+    
+    return point_cloud_in_numpy # return N*3 array 
+
     
     
 class PointSampler(object):
@@ -44,8 +42,8 @@ class PointSampler(object):
 
         for i in range(len(areas)):
             areas[i] = (self.triangle_area(verts[faces[i][0]],
-                                           verts[faces[i][1]],
-                                           verts[faces[i][2]]))
+                                            verts[faces[i][1]],
+                                            verts[faces[i][2]]))
             
         sampled_faces = (random.choices(faces,
                                       weights=areas,
@@ -56,8 +54,8 @@ class PointSampler(object):
 
         for i in range(len(sampled_faces)):
             sampled_points[i] = (self.sample_point(verts[sampled_faces[i][0]],
-                                                   verts[sampled_faces[i][1]],
-                                                   verts[sampled_faces[i][2]]))
+                                                    verts[sampled_faces[i][1]],
+                                                    verts[sampled_faces[i][2]]))
         
         return sampled_points
 
@@ -76,8 +74,8 @@ class RandRotation_z(object):
 
         theta = random.random() * 2. * math.pi
         rot_matrix = np.array([[ math.cos(theta), -math.sin(theta),    0],
-                               [ math.sin(theta),  math.cos(theta),    0],
-                               [0,                             0,      1]])
+                                [ math.sin(theta),  math.cos(theta),    0],
+                                [0,                             0,      1]])
         
         rot_pointcloud = rot_matrix.dot(pointcloud.T).T
         return  rot_pointcloud

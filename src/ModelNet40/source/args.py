@@ -5,13 +5,13 @@ def parse_args():
     parser = argparse.ArgumentParser(description='')
 
     #  experiment settings
-    parser.add_argument('--root_dir', default='data/', type=str,
+    parser.add_argument('--root_dir', default='../mydataset/', type=str,
                             help='dataset directory')
     parser.add_argument('--batch_size', default=32, type=int,
                             help='training batch size')
     parser.add_argument('--lr', default=1e-3, type=float,
                             help='learning rate')
-    parser.add_argument('--epochs', default=15, type=int,
+    parser.add_argument('--epochs', default=10, type=int,
                             help='number of training epochs')
     parser.add_argument('--save_model_path', default='./checkpoints/', type=str,
                             help='checkpoints dir')
