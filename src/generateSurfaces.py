@@ -16,7 +16,8 @@ import open3d as o3d
 # %% generate point cloud
 
 #number of points to Generate
-T = 10000
+T = 400
+
 
 sigma = 8
 alpha = 4
@@ -27,18 +28,18 @@ alpha = 4
 # YdomainStart = -1000
 # YdomainEnd = 1000
 
-#test domain of x and y as geogebra
-XdomainStart = -12 
-XdomainEnd = 12
-YdomainStart = -12
-YdomainEnd = 12
+# #test domain of x and y as geogebra
+# XdomainStart = -12 
+# XdomainEnd = 12
+# YdomainStart = -12
+# YdomainEnd = 12
 
 
-# #domain of x and y as petridis gave me
-# XdomainStart = -1
-# XdomainEnd = 1
-# YdomainStart = 1
-# YdomainEnd = 3
+#domain of x and y as petridis gave me
+XdomainStart = -1
+XdomainEnd = 1
+YdomainStart = 1
+YdomainEnd = 3
 
 x = []
 y = []

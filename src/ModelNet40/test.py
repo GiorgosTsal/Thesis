@@ -44,11 +44,10 @@ def test(args):
     
     train_ds = dataset.PointCloudData(path, transform=train_transforms)
     valid_ds = dataset.PointCloudData(path, valid=True, folder='test', transform=train_transforms)
-    print('Train dataset size: ', len(train_ds))
+
     print('Valid dataset size: ', len(valid_ds))
     print('Number of classes: ', len(train_ds.classes))
     
-    train_loader = DataLoader(dataset=train_ds, batch_size=args.batch_size, shuffle=True)
     valid_loader = DataLoader(dataset=valid_ds, batch_size=args.batch_size*2)
     
     
@@ -56,7 +55,7 @@ def test(args):
     from sklearn.metrics import confusion_matrix
    
     pointnet = model.PointNet()
-    pointnet.load_state_dict(torch.load('checkpoints/save_8.pth'))
+    pointnet.load_state_dict(torch.load('checkpoints/save_10.pth'))
     pointnet.eval();
 
     all_preds = []
@@ -73,7 +72,7 @@ def test(args):
             
     cm = confusion_matrix(all_labels, all_preds);
     print("=========")
-    print("Confusion Matrix second:")
+    print("Confusion Matrix:")
     print(cm)
     
     import itertools
@@ -103,13 +102,15 @@ def test(args):
         plt.ylabel('True label')
         plt.xlabel('Predicted label')
     
-    plt.figure(figsize=(8,8))
+    
+    plt.figure()
     plot_confusion_matrix(cm, list(classes.keys()), normalize=True)
-    
-    
-            
+                
     cm = confusion_matrix(all_labels, all_preds);
-
+    print("Confusion Matrix Normalized:")
+    print(cm)
+    
+    
 if __name__ == '__main__':
     args = parse_args()
     test(args)
