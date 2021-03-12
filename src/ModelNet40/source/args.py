@@ -11,7 +11,7 @@ def parse_args():
                             help='training batch size')
     parser.add_argument('--lr', default=1e-3, type=float,
                             help='learning rate')
-    parser.add_argument('--epochs', default=25, type=int,
+    parser.add_argument('--epochs', default=10, type=int,
                             help='number of training epochs')
     parser.add_argument('--save_model_path', default='./checkpoints/', type=str,
                             help='checkpoints dir')

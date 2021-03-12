@@ -236,8 +236,5 @@ if(count == total):
 
 # deleteFilesRecurs()  
     
-# %% Split into train-test ===> Copy 30% of the files as test
-# percentage = 0.3
-# splitFilesToFolders(percentage, count)
     
 print("Program terminated succesfully.")
