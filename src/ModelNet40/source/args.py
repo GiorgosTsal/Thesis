@@ -7,7 +7,7 @@ def parse_args():
     #  experiment settings
     parser.add_argument('--root_dir', default='../mydataset/', type=str,
                             help='dataset directory')
-    parser.add_argument('--batch_size', default=32, type=int,
+    parser.add_argument('--batch_size', default=16, type=int,
                             help='training batch size')
     parser.add_argument('--lr', default=1e-3, type=float,
                             help='learning rate')

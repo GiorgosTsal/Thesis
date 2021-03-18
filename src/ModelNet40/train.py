@@ -3,7 +3,7 @@ import math
 import random
 import os
 import torch
-from path import Path
+from path import Path #conda install -c anaconda path
 from source import model
 from source import dataset
 from source import utils
@@ -41,8 +41,7 @@ def train(args):
         utils.RandomNoise(),
         utils.ToTensor()
     ])
-    # device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')  # as is
-    device = torch.device('cpu' if torch.cuda.is_available() else 'cpu')
+    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')  # as is
     print(device)
     pointnet = model.PointNet()
     pointnet.to(device)

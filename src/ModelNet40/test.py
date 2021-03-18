@@ -35,8 +35,7 @@ def test(args):
         utils.RandomNoise(),
         utils.ToTensor()
     ])
-    # device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')  # as is
-    device = torch.device('cpu' if torch.cuda.is_available() else 'cpu')
+    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')  # as is
     print(device)
     pointnet = model.PointNet()
     pointnet.to(device)
@@ -55,7 +54,7 @@ def test(args):
     from sklearn.metrics import confusion_matrix
    
     pointnet = model.PointNet()
-    pointnet.load_state_dict(torch.load('checkpoints/save_10.pth'))
+    pointnet.load_state_dict(torch.load('checkpoints/save_9.pth'))
     pointnet.eval();
 
     all_preds = []

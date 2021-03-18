@@ -14,6 +14,16 @@ import os
 import shutil
 import open3d as o3d
 
+# %% clean forlder
+def deleteFilesRecurs():
+    # delete OFF files
+    root_dir = 'mydataset/'
+    for root, dirs, files in os.walk(root_dir):
+        for name in files:
+                os.remove(os.path.join(root, name)) #change to os.remove once sure
+    print("Old files removed...")
+    
+deleteFilesRecurs()
 # %% generate point cloud
 
 #number of points to Generate
@@ -22,11 +32,6 @@ T = 1000
 sigma = 8
 alpha = 4
 
-# # BIG domain of x and y
-# XdomainStart = -1000
-# XdomainEnd = 1000
-# YdomainStart = -1000
-# YdomainEnd = 1000
 
 #test domain of x and y as geogebra
 XdomainStart = -12 
@@ -61,14 +66,6 @@ funB = alpha*np.exp(-(pow(X,2)+pow(Y,2))/sigma)
 #Function C: z=x2+0.25*y2
 funC = pow(X,2) + 0.25*pow(Y,2)
 
-print('test')
-print('test2')
-# round for 5 decimal format
-# X = [np.round(x, 5) for x in X]
-# Y = [np.round(y, 5) for y in Y]
-# funA = [np.round(a, 5) for a in funA]
-# funB = [np.round(b, 5) for b in funB]
-# funC = [np.round(c, 5) for c in funC]
 
 X = np.round(X, 5)
 Y = np.round(Y, 5)
@@ -186,14 +183,6 @@ def rotateVecAxisZ(vector,z_rot):
    
     return rotated_vec
 
-def deleteFilesRecurs():
-    # delete OFF files
-    root_dir = 'mydataset/'
-    for root, dirs, files in os.walk(root_dir):
-        for name in files:
-                os.remove(os.path.join(root, name)) #change to os.remove once sure
-                print("Removing: "+ name)
-    print("All files removed...")
                 
 def splitFilesToFolders(percentage, count): 
     forrmat = '.ply'
@@ -228,7 +217,6 @@ count = 0
 frmt = '.ply'
 
 
-
 for x_rot in degrees:
     print(x_rot);
     rotated_vec_funA = rotateVecAxisZ(vec_funA,x_rot)
@@ -249,71 +237,8 @@ for x_rot in degrees:
     
     
     count +=1
-
-# print('All files created succesfully...')
-# %% Delete all files from the selected directory recursivly
-
-# deleteFilesRecurs()  
     
 # %% Split into train-test ===> Copy 30% of the files as test
 percentage = 0.3
 splitFilesToFolders(percentage, count)
-    
-
-
-# %%
-# # # print('Count=' + str(count))
-# # x_rot = 90
-# # y_rot = 15
-# # z_rot = 5
-
-
-# # # test_rotated_vec = rotateVecMultiple(vec,x_rot, y_rot, z_rot)
-
-
-# # # #Plot multiple rotated
-# # # fig = plt.figure()
-# # # fig.suptitle('Rotated '+ str(x_rot)+' degrees on x axis,'+ str(y_rot)+' degrees on y axis,'+ str(z_rot)+' degrees on z axis,')
-# # # ax = fig.add_subplot(111, projection='3d')
-# # # ax.scatter(test_rotated_vec[:,0],test_rotated_vec[:,1],test_rotated_vec[:,2])
-# # # plt.show()
-
-# # #======================================
-# # degrees = 90
-# # axis = 'x'
-# # points = 20
-# # #apply rotation 90 degrees on x axis
-# # rotated_vec = rotateVec(vec, degrees, axis)
-
-# # #Plot rotated
-# # fig = plt.figure()
-# # fig.suptitle('Rotated '+ str(degrees)+' degrees on ' + axis + ' axis: Function B : z=a*exp(-(x2+y2)/σ)   σ=8, a=4')
-# # ax = fig.add_subplot(111, projection='3d')
-# # ax.scatter(rotated_vec[:,0],rotated_vec[:,1],rotated_vec[:,2])
-# # plt.show()
-
-# %% Translation Region
-
-# # def translateVec(vector, points, axis):
-# #     translated_vector=vector;
-# #     if axis == 'x':
-# #         translated_vector[:,0] = translated_vector[:,0] + points
-# #     elif axis=='y':
-# #         translated_vector[:,1] = translated_vector[:,1] + points
-# #     elif axis=='z':
-# #         translated_vector[:,2] = translated_vector[:,2] + points 
-# #     return translated_vector
-
-# # # #apply translate for 20 points on x axis
-# # # translated_vec = translateVec(vec, points, axis)
-
-# # # vec=np.column_stack((v,funB))#i run this command for my help
-
-# # # #Plot translated
-# # # fig = plt.figure()
-# # # fig.suptitle('Translated for ' + str(points) + ' points on ' + axis +' axis: Function B : z=a*exp(-(x2+y2)/σ)   σ=8, a=4')
-# # # ax = fig.add_subplot(111, projection='3d')
-# # # ax.scatter(translated_vec[:,0],translated_vec[:,1],translated_vec[:,2])
-# # # plt.show()
-
     
