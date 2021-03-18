@@ -115,8 +115,11 @@ def test(args):
     classreport = classification_report(all_labels, all_preds)
     print(classreport)
     
+    
+    return classreport
+    
 #%% main
 if __name__ == '__main__':
     args = parse_args()
-    test(args)
+    class_report = test(args)
 
