@@ -18,6 +18,7 @@ from source.args import parse_args
 from torchvision import transforms
 from torch.utils.data import Dataset, DataLoader
 import source.model
+from sklearn.metrics import classification_report
 
 random.seed = 42
 
@@ -70,8 +71,8 @@ def test(args):
             all_labels += list(labels.numpy())
             
     cm = confusion_matrix(all_labels, all_preds);
-    print("=========")
-    print("Confusion Matrix:")
+    print("\n\n\n------------------Evaluation------------------\n")
+    print('Confusion matrix, without normalization')
     print(cm)
     
     import itertools
@@ -81,9 +82,9 @@ def test(args):
     def plot_confusion_matrix(cm, classes, normalize=False, title='Confusion matrix', cmap=plt.cm.Blues):
         if normalize:
             cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
-            print("Normalized confusion matrix")
-        else:
-            print('Confusion matrix, without normalization')
+            # print("Normalized confusion matrix")
+        # else:
+            # print('Confusion matrix, without normalization')
     
         plt.imshow(cm, interpolation='nearest', cmap=cmap)
         plt.title(title)
@@ -104,12 +105,17 @@ def test(args):
     
     plt.figure()
     plot_confusion_matrix(cm, list(classes.keys()), normalize=True)
-                
-    cm = confusion_matrix(all_labels, all_preds);
-    print("Confusion Matrix Normalized:")
-    print(cm)
+      
+    
+         
     
     
+    #%% Classification report
+    print ("\nClassification report results")
+    classreport = classification_report(all_labels, all_preds)
+    print(classreport)
+    
+#%% main
 if __name__ == '__main__':
     args = parse_args()
     test(args)
