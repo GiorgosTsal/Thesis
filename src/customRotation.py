@@ -27,24 +27,24 @@ deleteFilesRecurs()
 # %% generate point cloud
 
 #number of points to Generate
-T = 1000
+T = 400
 
 sigma = 8
 alpha = 4
 
 
-#test domain of x and y as geogebra
-XdomainStart = -12 
-XdomainEnd = 12
-YdomainStart = -12
-YdomainEnd = 12
+# #test domain of x and y as geogebra
+# XdomainStart = -12 
+# XdomainEnd = 12
+# YdomainStart = -12
+# YdomainEnd = 12
 
 
-# #domain of x and y as petridis gave me
-# XdomainStart = -1
-# XdomainEnd = 1
-# YdomainStart = 1
-# YdomainEnd = 3
+#domain of x and y as petridis gave me
+XdomainStart = -1
+XdomainEnd = 1
+YdomainStart = 1
+YdomainEnd = 3
 
 x = []
 y = []
@@ -219,9 +219,9 @@ frmt = '.ply'
 
 for x_rot in degrees:
     print(x_rot);
-    rotated_vec_funA = rotateVecAxisZ(vec_funA,x_rot)
-    rotated_vec_funB = rotateVecAxisZ(vec_funB,x_rot)
-    rotated_vec_funC = rotateVecAxisZ(vec_funC,x_rot)
+    rotated_vec_funA = rotateVecAxisX(vec_funA,x_rot)
+    rotated_vec_funB = rotateVecAxisX(vec_funB,x_rot)
+    rotated_vec_funC = rotateVecAxisX(vec_funC,x_rot)
    
     pcdA = o3d.geometry.PointCloud()
     pcdA.points = o3d.utility.Vector3dVector(rotated_vec_funA)

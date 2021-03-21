@@ -55,7 +55,7 @@ def test(args):
     from sklearn.metrics import confusion_matrix
    
     pointnet = model.PointNet()
-    pointnet.load_state_dict(torch.load('checkpoints/save_9.pth'))
+    pointnet.load_state_dict(torch.load('checkpoints/save_14.pth'))
     pointnet.eval();
 
     all_preds = []
@@ -120,6 +120,13 @@ def test(args):
     
 #%% main
 if __name__ == '__main__':
+    import time
+
+    start = time.time()
+    
     args = parse_args()
     class_report = test(args)
 
+    end = time.time()
+    totalmins = (end - start)/60
+    print("Total ellapsed time for testing: " + str(totalmins))

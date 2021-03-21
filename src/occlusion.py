@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun Jan 10 13:22:49 2021
+Created on Sun Mar 21 20:29:18 2021
 
 @author: root
 """
+
 # %matplotlib qt
 import random as rand
 import numpy as np
@@ -23,7 +24,7 @@ def deleteFilesRecurs():
     print("Old files removed...")
     
 deleteFilesRecurs()
-# %% generate point cloud
+# %% generate point cloud - set gloabal vars
 
 #number of points to Generate
 T = 400
@@ -51,19 +52,118 @@ alpha = 4
 # YdomainStart = 1
 # YdomainEnd = 3
 
-# new cut domain of x and y
+# %% OCCLUSION ON X AXIS
+# XdomainStart = -1
+# XdomainEnd = -0.5
+# YdomainStart = 1
+# YdomainEnd = 3
+
+# x = []
+# y = []
+
+# #populate x and y with random numbers into and range/domain
+# for i in range(0,T):
+#       y.append(rand.uniform(YdomainStart,YdomainEnd))
+      
+# #populate x and y with random numbers into and range/domain
+# for i in range(0,int(T/2)):
+#       x.append(rand.uniform(XdomainStart, XdomainEnd))
+      
+     
+
+# # new cut domain of x and y
+# XdomainStart = 0.5
+# XdomainEnd = 1
+
+
+# #populate x and y with random numbers into and range/domain
+# for i in range(0,int(T/2)):
+#       x.append(rand.uniform(XdomainStart, XdomainEnd))
+
+ # %%OCCLUSION ON Y AXIS
+# XdomainStart = -1
+# XdomainEnd = 1
+# YdomainStart = 1
+# YdomainEnd = 1.5
+
+# x = []
+# y = []
+
+# #populate x and y with random numbers into and range/domain
+# for i in range(0,T):
+#       x.append(rand.uniform(XdomainStart, XdomainEnd))
+      
+# #populate x and y with random numbers into and range/domain
+# for i in range(0,int(T/2)):
+#       y.append(rand.uniform(YdomainStart,YdomainEnd))
+      
+     
+
+# # new cut domain of x and y
+# YdomainStart = 2.5
+# YdomainEnd = 3
+
+
+# #populate x and y with random numbers into and range/domain
+# for i in range(0,int(T/2)):
+#       y.append(rand.uniform(YdomainStart,YdomainEnd))
+
+ # %%OCCLUSION ON BOTH AXIS -case 1
+# XdomainStart = -1
+# XdomainEnd = -0.5
+# YdomainStart = 1
+# YdomainEnd = 1.5
+
+# x = []
+# y = []
+
+      
+# #populate x and y with random numbers into and range/domain
+# for i in range(0,int(T/2)):
+#       y.append(rand.uniform(YdomainStart,YdomainEnd))
+#       x.append(rand.uniform(XdomainStart, XdomainEnd))
+      
+     
+
+# # new cut domain of x and y
+# YdomainStart = 2.5
+# YdomainEnd = 3
+# XdomainStart = 0.5
+# XdomainEnd = 1
+
+
+# #populate x and y with random numbers into and range/domain
+# for i in range(0,int(T/2)):
+#       y.append(rand.uniform(YdomainStart,YdomainEnd))
+#       x.append(rand.uniform(XdomainStart, XdomainEnd))
+  
+# %%OCCLUSION ON BOTH AXIS -case 2
 XdomainStart = -1
-XdomainEnd = 0
-YdomainStart = 1
-YdomainEnd = 2
+XdomainEnd = -0.5
+YdomainStart = 2
+YdomainEnd = 3
 
 x = []
 y = []
+
+
 #populate x and y with random numbers into and range/domain
 for i in range(0,T):
-      x.append(rand.uniform(XdomainStart, XdomainEnd))
       y.append(rand.uniform(YdomainStart,YdomainEnd))
+      
+#populate x and y with random numbers into and range/domain
+for i in range(0,int(T/2)):
+      x.append(rand.uniform(XdomainStart, XdomainEnd))
+      
+     
+XdomainStart = 0.5
+XdomainEnd = 1
 
+
+#populate x and y with random numbers into and range/domain
+for i in range(0,int(T/2)):
+      x.append(rand.uniform(XdomainStart, XdomainEnd))
+# %%
 #transorm lists to numpy arrays for ease
 X=np.array(x)
 Y=np.array(y)
@@ -112,7 +212,6 @@ fig.suptitle('Function C : z=x2+0.25*y2')
 ax = fig.add_subplot(111, projection='3d')
 ax.scatter(X,Y,funC)
 plt.show()
-       
 # %% Rotation region
 
 
@@ -236,6 +335,3 @@ print('All files created succesfully...')
 # %% Split into train-test ===> Copy 30% of the files as test
 percentage = 0.3
 splitFilesToFolders(percentage, count)
-    
-
-

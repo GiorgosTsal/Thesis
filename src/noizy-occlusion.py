@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Mar  8 20:32:28 2021
+Created on Sun Mar 21 22:02:18 2021
 
 @author: root
 """
@@ -14,7 +14,7 @@ import os
 import shutil
 import open3d as o3d
 
-
+# %% clean forlder
 def deleteFilesRecurs():
     # delete OFF files
     root_dir = 'mydataset/'
@@ -24,7 +24,7 @@ def deleteFilesRecurs():
     print("Old files removed...")
     
 deleteFilesRecurs()
-# %% generate point cloud
+# %% generate point cloud - set gloabal vars
 
 #number of points to Generate
 T = 400
@@ -46,19 +46,124 @@ alpha = 4
 # YdomainEnd = 12
 
 
-#domain of x and y as petridis gave me
+# #domain of x and y as petridis gave me
+# XdomainStart = -1
+# XdomainEnd = 1
+# YdomainStart = 1
+# YdomainEnd = 3
+
+# %% OCCLUSION ON X AXIS
+# XdomainStart = -1
+# XdomainEnd = -0.5
+# YdomainStart = 1
+# YdomainEnd = 3
+
+# x = []
+# y = []
+
+# #populate x and y with random numbers into and range/domain
+# for i in range(0,T):
+#       y.append(rand.uniform(YdomainStart,YdomainEnd))
+      
+# #populate x and y with random numbers into and range/domain
+# for i in range(0,int(T/2)):
+#       x.append(rand.uniform(XdomainStart, XdomainEnd))
+      
+     
+
+# # new cut domain of x and y
+# XdomainStart = 0.5
+# XdomainEnd = 1
+
+
+# #populate x and y with random numbers into and range/domain
+# for i in range(0,int(T/2)):
+#       x.append(rand.uniform(XdomainStart, XdomainEnd))
+
+ # %%OCCLUSION ON Y AXIS
+# XdomainStart = -1
+# XdomainEnd = 1
+# YdomainStart = 1
+# YdomainEnd = 1.5
+
+# x = []
+# y = []
+
+# #populate x and y with random numbers into and range/domain
+# for i in range(0,T):
+#       x.append(rand.uniform(XdomainStart, XdomainEnd))
+      
+# #populate x and y with random numbers into and range/domain
+# for i in range(0,int(T/2)):
+#       y.append(rand.uniform(YdomainStart,YdomainEnd))
+      
+     
+
+# # new cut domain of x and y
+# YdomainStart = 2.5
+# YdomainEnd = 3
+
+
+# #populate x and y with random numbers into and range/domain
+# for i in range(0,int(T/2)):
+#       y.append(rand.uniform(YdomainStart,YdomainEnd))
+
+ # %%OCCLUSION ON BOTH AXIS -case 1
+# XdomainStart = -1
+# XdomainEnd = -0.5
+# YdomainStart = 1
+# YdomainEnd = 1.5
+
+# x = []
+# y = []
+
+      
+# #populate x and y with random numbers into and range/domain
+# for i in range(0,int(T/2)):
+#       y.append(rand.uniform(YdomainStart,YdomainEnd))
+#       x.append(rand.uniform(XdomainStart, XdomainEnd))
+      
+     
+
+# # new cut domain of x and y
+# YdomainStart = 2.5
+# YdomainEnd = 3
+# XdomainStart = 0.5
+# XdomainEnd = 1
+
+
+# #populate x and y with random numbers into and range/domain
+# for i in range(0,int(T/2)):
+#       y.append(rand.uniform(YdomainStart,YdomainEnd))
+#       x.append(rand.uniform(XdomainStart, XdomainEnd))
+  
+# %%OCCLUSION ON BOTH AXIS -case 2
 XdomainStart = -1
-XdomainEnd = 1
-YdomainStart = 1
+XdomainEnd = -0.5
+YdomainStart = 2
 YdomainEnd = 3
 
 x = []
 y = []
+
+
 #populate x and y with random numbers into and range/domain
 for i in range(0,T):
-      x.append(rand.uniform(XdomainStart, XdomainEnd))
       y.append(rand.uniform(YdomainStart,YdomainEnd))
+      
+#populate x and y with random numbers into and range/domain
+for i in range(0,int(T/2)):
+      x.append(rand.uniform(XdomainStart, XdomainEnd))
+      
+     
+XdomainStart = 0.5
+XdomainEnd = 1
 
+
+#populate x and y with random numbers into and range/domain
+for i in range(0,int(T/2)):
+      x.append(rand.uniform(XdomainStart, XdomainEnd))
+# %%
 #transorm lists to numpy arrays for ease
 X=np.array(x)
 Y=np.array(y)
@@ -72,6 +177,12 @@ funB = alpha*np.exp(-(pow(X,2)+pow(Y,2))/sigma)
 #Function C: z=x2+0.25*y2
 funC = pow(X,2) + 0.25*pow(Y,2)
 
+# round for 5 decimal format
+# X = [np.round(x, 5) for x in X]
+# Y = [np.round(y, 5) for y in Y]
+# funA = [np.round(a, 5) for a in funA]
+# funB = [np.round(b, 5) for b in funB]
+# funC = [np.round(c, 5) for c in funC]
 
 X = np.round(X, 5)
 Y = np.round(Y, 5)
@@ -132,7 +243,7 @@ def rotateVecMultiple(vector, x_rot=0, y_rot=0, z_rot=0):
 
 # 0.15 0.22 0.28 0.35 0.42 0.5
 
-pososto = 0.42
+pososto = 0.15
 meanD = 0.7
 mean = 0
 std = pososto * meanD
