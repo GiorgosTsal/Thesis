@@ -102,13 +102,16 @@ def test(args):
         plt.ylabel('True label')
         plt.xlabel('Predicted label')
     
-    
-    plt.figure()
+    # plot as figure normalized cm
+    plt.figure()    
     plot_confusion_matrix(cm, list(classes.keys()), normalize=True)
+    
+    # plot as figure default cm (withou normalization)
+    plt.figure()    
+    plot_confusion_matrix(cm, list(classes.keys()), normalize=False)
       
     
          
-    
     
     #%% Classification report
     print ("\nClassification report results")

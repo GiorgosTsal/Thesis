@@ -11,6 +11,7 @@ from source.args import parse_args
 from torchvision import transforms
 from torch.utils.data import Dataset, DataLoader
 import source.model
+from matplotlib import pyplot as plt
  
 random.seed = 42
 
@@ -66,8 +67,10 @@ def train(args):
     
     print('Start training')
     from tqdm import tqdm
-    
+    meanloss = []
     for epoch in tqdm(range(args.epochs)):
+        sum_of_loss = 0
+        # cnt = 0
         pointnet.train()
         running_loss = 0.0
         # print("1")
@@ -83,10 +86,17 @@ def train(args):
 
             # print statistics
             running_loss += loss.item()
+            # print("Iteration:" + str(cnt) +", Current loss: " + str(running_loss / 10))
+            # cnt +=1
+            sum_of_loss += running_loss / 10
             if i % 10 == 9:    # print every 10 mini-batches
                     print('[Epoch: %d, Batch: %4d / %4d], loss: %.3f' %
                         (epoch + 1, i + 1, len(train_loader), running_loss / 10))
                     running_loss = 0.0
+        
+        # print('Value is' + str(sum_of_loss/len(train_loader)))
+        meanloss.append(sum_of_loss/len(train_loader))
+        # print(meanloss)
         
         pointnet.eval()
         correct = total = 0
@@ -104,10 +114,17 @@ def train(args):
             print('Valid accuracy: %d %%' % val_acc)
         # save the model
         
+        print
         checkpoint = Path(args.save_model_path)/'save_'+str(epoch)+'.pth'
         torch.save(pointnet.state_dict(), checkpoint)
         print('Model saved to ', checkpoint)
-    
+   
+
+    plt.plot(meanloss)
+    plt.xlabel("Epochs")
+    plt.ylabel("Validation loss")
+    plt.title("Validation Learning Curve")
+    plt.show()
 
 if __name__ == '__main__':
     import time
