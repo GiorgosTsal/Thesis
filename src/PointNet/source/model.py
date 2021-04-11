@@ -72,7 +72,7 @@ class Transform(nn.Module):
         return output, matrix3x3, matrix64x64
 
 class PointNet(nn.Module):
-    def __init__(self, classes = 40):
+    def __init__(self, classes = 360):
         super().__init__()
         self.transform = Transform()
         self.fc1 = nn.Linear(1024, 512)
