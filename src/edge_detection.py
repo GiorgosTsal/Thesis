@@ -14,7 +14,7 @@ import os
 import sys
 import pdb
 
-pcd1 = PyntCloud.from_file("mydataset/functionA/test/functionA_0.ply")
+pcd1 = PyntCloud.from_file("other/bunny.ply")
 
 
 output_dir = "./detected_edge/"

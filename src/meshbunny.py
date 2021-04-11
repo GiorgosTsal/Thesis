@@ -12,7 +12,7 @@ import open3d as o3d
 
 
 
-input_path="datasets/"
+input_path="other/"
 output_path="output/"
 # dataname2="lod_100.off"
 # dataname="sample.xyz"
