@@ -16,7 +16,7 @@ import open3d as o3d
 # with this, we generate in each execution the same data
 np.random.seed(2021)
 rand.seed = 2021
-plots = True
+plots = False
 
 def deleteFilesRecurs():
     # delete OFF files
@@ -34,8 +34,9 @@ T = 400
 
 sigma = 8
 alpha = 4
-
- # %%OCCLUSION ON BOTH AXIS -case 1
+ 
+nElements = T/2 + T/8
+ # %%OCCLUSION function A
 XadomainStart = -1
 XadomainEnd = 1
 YadomainStart = -1
@@ -44,7 +45,7 @@ YadomainEnd = 3
 xa = []
 ya = []
 
-T = T / 2   
+
 #populate x and y with random numbers into and range/domain
 for i in range(0,int(T/2)):
       ya.append(rand.uniform(YadomainStart,YadomainEnd))
@@ -53,30 +54,17 @@ for i in range(0,int(T/2)):
      
 
 # new cut domain of x and y
-YadomainStart = -1
-YadomainEnd = 0
 XadomainStart = 1
 XadomainEnd = 3
+YadomainStart = -1
+YadomainEnd = 0
+
 
 
 #populate x and y with random numbers into and range/domain
-for i in range(0,int(T/2)):
+for i in range(0,int(T/8)):
       ya.append(rand.uniform(YadomainStart,YadomainEnd))
       xa.append(rand.uniform(XadomainStart, XadomainEnd))
-# %% Function A: z=2+sinx+cosy
-
-# # new cut domain of x and y
-# XadomainStart = -1
-# XadomainEnd = 3
-# YadomainStart = -1
-# YadomainEnd = 3
-
-# xa = []
-# ya = []
-# #populate x and y with random numbers into and range/domain
-# for i in range(0,T):
-#       xa.append(rand.uniform(XadomainStart, XadomainEnd))
-#       ya.append(rand.uniform(YadomainStart,YadomainEnd))
 
 #transorm lists to numpy arrays for ease
 Xa=np.array(xa)
@@ -89,20 +77,35 @@ funA = 2 + np.sin(Xa) + np.cos(Ya)
 Xa = np.round(Xa, 5)
 Ya = np.round(Ya, 5)
 funA = np.round(funA, 5)
-# %% Function B: z=a*exp(-(x2+y2)/σ)      σ=8,   a=4
-
-# new cut domain of x and y
-XbdomainStart = -2.4
+  # %%OCCLUSION function B
+XbdomainStart = -1
 XbdomainEnd = 1.6
 YbdomainStart = -0.5
 YbdomainEnd = 3
 
 xb = []
 yb = []
+
+
 #populate x and y with random numbers into and range/domain
-for i in range(0,int(T)):
-      xb.append(rand.uniform(XbdomainStart, XbdomainEnd))
+for i in range(0,int(T/2)):
       yb.append(rand.uniform(YbdomainStart,YbdomainEnd))
+      xb.append(rand.uniform(XbdomainStart, XbdomainEnd))
+      
+     
+
+# new cut domain of x and y
+XbdomainStart = -2.4
+XbdomainEnd = -1
+YbdomainStart = 2
+YbdomainEnd = 3
+
+
+
+#populate x and y with random numbers into and range/domain
+for i in range(0,int(T/8)):
+      yb.append(rand.uniform(YbdomainStart,YbdomainEnd))
+      xb.append(rand.uniform(XbdomainStart, XbdomainEnd))
 
 #transorm lists to numpy arrays for ease
 Xb=np.array(xb)
@@ -115,19 +118,35 @@ Xb = np.round(Xb, 5)
 Yb = np.round(Yb, 5)
 funB = np.round(funB, 5)
 
-# %% Function C: z=x2+0.25*y2
-# new cut domain of x and y
+  # %%OCCLUSION function B
 XcdomainStart = -0.5
-XcdomainEnd = 3
+XcdomainEnd = 1
 YcdomainStart = -1.8
 YcdomainEnd = 4.5
 
 xc = []
 yc = []
+
+
 #populate x and y with random numbers into and range/domain
-for i in range(0,int(T)):
-      xc.append(rand.uniform(XcdomainStart, XcdomainEnd))
+for i in range(0,int(T/2)):
       yc.append(rand.uniform(YcdomainStart,YcdomainEnd))
+      xc.append(rand.uniform(XcdomainStart, XcdomainEnd))
+      
+     
+
+# new cut domain of x and y
+XcdomainStart = 1
+XcdomainEnd = 3
+YcdomainStart = -1.8
+YcdomainEnd = 0
+
+
+
+#populate x and y with random numbers into and range/domain
+for i in range(0,int(T/8)):
+      yc.append(rand.uniform(YcdomainStart,YcdomainEnd))
+      xc.append(rand.uniform(XcdomainStart, XcdomainEnd))
 
 #transorm lists to numpy arrays for ease
 Xc=np.array(xc)
@@ -221,11 +240,10 @@ def rotateVecMultiple(vector, x_rot=0, y_rot=0, z_rot=0):
 
 # 0.15 0.22 0.28 0.35 0.42 0.5
 
-pososto = 0
+pososto = 0.35
 meanD = 0.7
 mean = 0
 std = pososto * meanD
-nElements = T
 
 noise = np.random.normal(mean,std,int(nElements))
 

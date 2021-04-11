@@ -16,7 +16,7 @@ import open3d as o3d
 # with this, we generate in each execution the same data
 np.random.seed(2021)
 rand.seed = 2021
-plots = True
+plots = False
 
 def deleteFilesRecurs():
     # delete OFF files
@@ -193,7 +193,7 @@ def rotateVecMultiple(vector, x_rot=0, y_rot=0, z_rot=0):
 
 # 0.15 0.22 0.28 0.35 0.42 0.5
 
-pososto = 0
+pososto = 0.42
 meanD = 0.7
 mean = 0
 std = pososto * meanD
@@ -298,7 +298,7 @@ for x_rot in degrees:
             count +=1
 
 if(count == total):
-    print("Dataset created.")
+    print("Dataset created with noise level: " + str(pososto))
 
     
 print("Program terminated succesfully.")
